@@ -2,8 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
+import os
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_user}:{settings.database_password}@{settings.database_host}/{settings.database_name}"
+SQLALCHEMY_DATABASE_URL = (
+    os.getenv("DATABASE_URL")
+    or f"postgresql://{settings.database_user}:{settings.database_password}@{settings.database_host}/{settings.database_name}"
+)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
