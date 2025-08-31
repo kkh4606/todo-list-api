@@ -9,7 +9,7 @@ from . import schema, database, models, config
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
-SECRET_KEY = config.settings.secret_keys
+SECRET_KEY = config.settings.secret_key
 ALGORITHM = config.settings.algorithm
 ACCESS_TOKEN_EXPIRE_MINUTES = config.settings.access_token_expire_minutes
 
