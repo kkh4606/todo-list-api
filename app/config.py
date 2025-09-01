@@ -1,17 +1,12 @@
 from pydantic_settings import BaseSettings
-import os
 
 
 class Settings(BaseSettings):
-    database_user: str
-    database_host: str
-    database_port: str
-    database_password: str
-    database_name: str
+    database_url: str  # Railway provides this as DATABASE_URL
 
-    secret_key: str = "sadjfljalsjfdljasljfdlajsd"
-    algorithm: str = "HS256"
-    access_token_expire_minutes: int = 60
+    secret_key: str
+    algorithm: str
+    access_token_expire_minutes: int
 
     class Config:
         env_file = ".env"
