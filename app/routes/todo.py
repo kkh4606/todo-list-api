@@ -16,7 +16,7 @@ def get_todos(
     return todos
 
 
-@router.post("/create-todo")
+@router.post("/")
 def create_todo(
     todo: schema.CreateTodo,
     db: Session = Depends(database.get_db),
