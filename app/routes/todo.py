@@ -8,7 +8,10 @@ router = APIRouter(prefix="/todos", tags=["TODO"])
 
 
 @router.get("/", response_model=List[schema.TodoOut])
-def get_todos(db: Session = Depends(database.get_db)):
+def get_todos(
+    db: Session = Depends(database.get_db),
+    current_user: int = Depends(oauth2.get_current_user),
+):
     todos = db.query(models.Todo).all()
     return todos
 
