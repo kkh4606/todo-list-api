@@ -12,10 +12,16 @@ class CreateUser(User):
     pass
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
 class UserOut(BaseModel):
     id: int
     email: EmailStr
     created_at: datetime
+    token: Token
 
 
 class Todo(BaseModel):
@@ -37,11 +43,6 @@ class TodoOut(BaseModel):
     is_completed: bool
     owner_id: int
     owner: UserOut
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 
 class TokenData(BaseModel):
