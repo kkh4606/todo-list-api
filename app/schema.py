@@ -36,13 +36,19 @@ class UpdateTodo(Todo):
     pass
 
 
+class UserTodoOut(BaseModel):
+    id: int
+    email: int
+    created_at: int
+
+
 class TodoOut(BaseModel):
     id: int
     content: str
     created_at: datetime
     is_completed: bool
     owner_id: int
-    owner: UserOut
+    owner: UserTodoOut
 
 
 class TokenData(BaseModel):

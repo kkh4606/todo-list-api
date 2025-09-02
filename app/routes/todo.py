@@ -14,7 +14,7 @@ def get_todos(
 ):
     todos = db.query(models.Todo).filter(models.Todo.owner_id == current_user.id).all()
 
-    return todos
+    return {**todos, "owner": user}
 
 
 @router.post("/create")
