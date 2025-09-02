@@ -12,7 +12,8 @@ def get_todos(
     db: Session = Depends(database.get_db),
     current_user: int = Depends(oauth2.get_current_user),
 ):
-    todos = db.query(models.Todo).all()
+    todos = db.query(models.Todo).filter(models.Todo.owner_id == current_user.id).all()
+
     return todos
 
 
