@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from .. import database, models, schema, util, oauth2
 
@@ -54,5 +54,26 @@ def update_user():
 
 
 @router.delete("/{id}")
-def delete_user():
-    pass
+def delete_user(
+    id: int,
+    db: Session = Depends(database.get_db),
+    current_user: int = Depends(oauth2.get_current_user),
+):
+    user_query = db.query(models.User).filter(models.User.id == id)
+    user_exist = user_query.first()
+
+    if user_exist is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"user with id : {id} not found",
+        )
+
+    if user_exist.id != current_user.id:  # type:ignore
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="request action not allowed"
+        )
+
+    user_query.delete(synchronize_session=False)
+    db.commit()
+    db.refresh(user_exist)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
