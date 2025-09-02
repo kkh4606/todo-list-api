@@ -38,8 +38,8 @@ class UpdateTodo(Todo):
 
 class UserTodoOut(BaseModel):
     id: int
-    email: int
-    created_at: int
+    email: str
+    created_at: datetime
 
 
 class TodoOut(BaseModel):
