@@ -7,7 +7,7 @@ from typing import List
 router = APIRouter(prefix="/todos", tags=["TODO"])
 
 
-@router.get("/", response_model=List[schema.UserTodoOut])
+@router.get("/", response_model=List[schema.TodoOut])
 def get_todos(
     db: Session = Depends(database.get_db),
     current_user: int = Depends(oauth2.get_current_user),
