@@ -21,6 +21,6 @@ class Todo(Base):
     is_completed = Column(Boolean, server_default="FALSE")
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
 
     owner = relationship("User")
