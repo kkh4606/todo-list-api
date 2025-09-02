@@ -13,6 +13,8 @@ class User(Base):
     password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("NOW()"))
 
+    todos = relationship("Todo", back_populates="owner", cascade="all, delete-orphan")
+
 
 class Todo(Base):
     __tablename__ = "todos"
@@ -23,4 +25,4 @@ class Todo(Base):
 
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
 
-    owner = relationship("User")
+    owner = relationship("User", back_populates="todos")
